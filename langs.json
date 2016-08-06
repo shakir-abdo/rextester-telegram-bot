@@ -1,6 +1,8 @@
 {
 	"c#": 1,
 	"c-sharp": 1,
+	"csharp": 1,
+	"c_sharp": 1,
 
 	"vb.net": 2,
 	"vb": 2,
@@ -9,6 +11,8 @@
 
 	"f#": 3,
 	"f-sharp": 3,
+	"f_sharp": 3,
+	"fsharp": 3,
 
 	"java": 4,
 
@@ -16,10 +20,13 @@
 	"py2": 5,
 
 	"c-gcc": 6,
+	"c_gcc": 6,
 	"gcc": 6,
 	"c": 6,
 
 	"c++-gcc": 7,
+	"cplusplus_gcc": 7,
+	"cplusplus": 7,
 	"c++-g++": 7,
 	"g++": 7,
 	"c++": 7,
@@ -31,6 +38,8 @@
 	"fpc": 9,
 
 	"objective-c": 10,
+	"objective_c": 10,
+	"objectivec": 10,
 
 	"haskell": 11,
 
@@ -73,16 +82,22 @@
 	"octave": 25,
 
 	"c-clang": 26,
+	"c_clang": 26,
 	"clang": 26,
 
 	"c++-clang": 27,
+	"cplusplus_clang": 27,
+	"clangplusplus": 27,
 	"clang++": 27,
 
 	"visual-c++": 28,
+	"visual_cplusplus": 28,
 	"vc++": 28,
 	"msvc": 28,
 
 	"visual-c": 29,
+	"visual_c": 29,
+	"visualc": 29,
 	"vc": 29,
 
 	"d": 30,
