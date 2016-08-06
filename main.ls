@@ -57,7 +57,7 @@ bot.onText //
 					.map (val, key) ->
 						"""
 						*#key*: ```
-						#val
+						#{val.trim!}
 						```
 						"""
 					.join '\n'
