@@ -9,6 +9,7 @@ require! {
 	'lodash'
 	'./token.json'
 	'./langs.json'
+	'./compiler-args.json'
 }
 
 bot = new Bot token,
@@ -69,4 +70,4 @@ bot.onText //
 			LanguageChoice: lang-id
 			Program: code
 			Input: stdin
-			CompilerArgs: ''
+			CompilerArgs: compiler-args[lang-id] || ''
