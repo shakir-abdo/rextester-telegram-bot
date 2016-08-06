@@ -1,0 +1,99 @@
+{
+	"c#": 1,
+	"c-sharp": 1,
+
+	"vb.net": 2,
+	"vb": 2,
+	"visual-basic":2,
+	"visual-basic.net": 2,
+
+	"f#": 3,
+	"f-sharp": 3,
+
+	"java": 4,
+
+	"python2": 5,
+	"py2": 5,
+
+	"c-gcc": 6,
+	"gcc": 6,
+	"c": 6,
+
+	"c++-gcc": 7,
+	"c++-g++": 7,
+	"g++": 7,
+	"c++": 7,
+
+	"php": 8,
+
+	"pascal": 9,
+	"pas": 9,
+	"fpc": 9,
+
+	"objective-c": 10,
+
+	"haskell": 11,
+
+	"ruby": 12,
+	"rb": 12,
+
+	"perl5": 13,
+	"perl": 13,
+
+	"lua": 14,
+
+	"nasm": 15,
+
+	"sql-server": 16,
+
+	"v8": 17,
+
+	"common-lisp": 18,
+	"lisp": 18,
+	"cl": 18,
+
+	"prolog": 19,
+
+	"golang": 20,
+	"go": 20,
+
+	"scala": 21,
+
+	"scheme": 22,
+
+	"node.js": 23,
+	"node": 23,
+	"javascript": 23,
+	"js": 23,
+
+	"python3": 24,
+	"py3": 24,
+	"python": 24,
+
+	"octave": 25,
+
+	"c-clang": 26,
+	"clang": 26,
+
+	"c++-clang": 27,
+	"clang++": 27,
+
+	"visual-c++": 28,
+	"vc++": 28,
+	"msvc": 28,
+
+	"visual-c": 29,
+	"vc": 29,
+
+	"d": 30,
+
+	"r": 31,
+
+	"tcl": 32,
+
+	"mysql": 33,
+
+	"postgresql": 34,
+
+	"oracle": 35
+}
