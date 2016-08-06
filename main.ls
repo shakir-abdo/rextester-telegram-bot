@@ -1,5 +1,4 @@
 #!./node_modules/.bin/lsc
-# add langs.json
 
 require! {
 	'node-telegram-bot-api': 'Bot'
@@ -10,6 +9,10 @@ require! {
 	'./compiler-args.json'
 	'./help'
 }
+
+verbose = lodash process.argv
+	.slice 2
+	.some -> it == '-v' or it == '--verbose'
 
 bot = new Bot token,
 	polling: true
@@ -35,7 +38,8 @@ bot.onText //
 		)?
 		$
 	//, (msg, [, lang, name, code, stdin]) ->
-		console.log msg
+		if verbose
+			console.log msg
 		lang-id = langs[lang.toLowerCase!]
 		if lang-id == void
 			if name or msg.chat.type == 'private'
@@ -70,3 +74,6 @@ bot.onText //
 		.catch (e) ->
 			bot.send-message msg.chat.id, e.to-string!,
 				reply_to_message_id: msg.message_id
+
+if verbose
+	console.log 'Bot started.'
