@@ -46,6 +46,8 @@ bot.onText //
 			method: 'POST'
 			hostname: 'rextester.com'
 			path: '/rundotnet/api'
+			headers:
+				'Content-Type': 'application/x-www-form-urlencoded'
 			(res) ->
 				res
 				.pipe json-stream!
