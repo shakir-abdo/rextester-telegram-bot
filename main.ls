@@ -10,10 +10,13 @@ require! {
 	'./token.json'
 	'./langs.json'
 	'./compiler-args.json'
+	'./help'
 }
 
 bot = new Bot token,
 	polling: true
+
+help bot
 
 bot.onText //
 		^
