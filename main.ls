@@ -22,7 +22,7 @@ help bot
 bot.onText //
 		^
 		[/!#]
-		([a-zA-Z.#+-]+) # language
+		([a-zA-Z1-9.#+-]+) # language
 		(?:@(rextester_bot))? # bot's name, hardcoded for simplicity
 		\s+
 		# ```
