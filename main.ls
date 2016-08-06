@@ -3,9 +3,7 @@
 
 require! {
 	'node-telegram-bot-api': 'Bot'
-	'http'
-	'querystring'
-	'json-stream'
+	'request-promise'
 	'lodash'
 	'./token.json'
 	'./langs.json'
@@ -46,31 +44,29 @@ bot.onText //
 					parse_mode: 'Markdown'
 			return
 
-		http.request do
+		request-promise do
 			method: 'POST'
-			hostname: 'rextester.com'
-			path: '/rundotnet/api'
-			headers:
-				'Content-Type': 'application/x-www-form-urlencoded'
-			(res) ->
-				res
-				.pipe json-stream!
-				.on 'data', ->
-					lodash it
-					.pickBy! # ignore empty values
-					.map (val, key) ->
-						"""
-						*#key*: ```
-						#{val.trim!}
-						```
-						"""
-					.join '\n'
-					|> bot.send-message msg.chat.id, _,
-						reply_to_message_id: msg.message_id
-						parse_mode: 'Markdown'
+			url: 'http://rextester.com/rundotnet/api'
+			form:
+				LanguageChoice: lang-id
+				Program: code
+				Input: stdin
+				CompilerArgs: compiler-args[lang-id] || ''
 
-		.end querystring.stringify do
-			LanguageChoice: lang-id
-			Program: code
-			Input: stdin
-			CompilerArgs: compiler-args[lang-id] || ''
+		.then JSON.parse
+		.then ->
+			lodash it
+			.pickBy! # ignore empty values
+			.map (val, key) ->
+				"""
+				*#key*: ```
+				#{val.trim!}
+				```
+				"""
+			.join '\n'
+			|> bot.send-message msg.chat.id, _,
+				reply_to_message_id: msg.message_id
+				parse_mode: 'Markdown'
+		.catch (e) ->
+			bot.send-message msg.chat.id, e.to-string!,
+				reply_to_message_id: msg.message_id

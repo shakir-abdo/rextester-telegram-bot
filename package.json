@@ -1,13 +1,14 @@
 {
   "name": "rextester-bot",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Telegram bot (@rextester_bot) for executing snippets of code",
   "main": "main.ls",
   "dependencies": {
-    "json-stream": "^1.0.0",
     "livescript": "^1.5.0",
     "lodash": "^4.14.1",
-    "node-telegram-bot-api": "^0.23.3"
+    "node-telegram-bot-api": "^0.23.3",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.0"
   },
   "devDependencies": {},
   "scripts": {
