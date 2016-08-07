@@ -4,11 +4,12 @@ require! {
 	'node-telegram-bot-api': 'Bot'
 	'request-promise'
 	'lodash'
-	'./token.json'
 	'./langs.json'
 	'./compiler-args.json'
 	'./help'
 }
+
+token = process.env.TELEGRAM_BOT_TOKEN || require './token.json'
 
 verbose = lodash process.argv
 	.slice 2
