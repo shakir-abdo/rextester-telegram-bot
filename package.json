@@ -1,6 +1,6 @@
 {
   "name": "rextester-bot",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Telegram bot (@rextester_bot) for executing snippets of code",
   "main": "main.ls",
   "dependencies": {

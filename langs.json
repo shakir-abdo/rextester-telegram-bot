@@ -47,6 +47,8 @@
 	"lua": 14,
 
 	"nasm": 15,
+	"asm": 15,
+	"assembly": 15,
 
 	"sql-server": 16,
 
