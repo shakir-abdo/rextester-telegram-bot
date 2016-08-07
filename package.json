@@ -1,6 +1,6 @@
 {
   "name": "rextester-bot",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Telegram bot (@rextester_bot) for executing snippets of code",
   "main": "main.ls",
   "dependencies": {
@@ -12,6 +12,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "./node_modules/.bin/lsc main.ls",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
