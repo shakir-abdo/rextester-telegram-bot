@@ -19,7 +19,7 @@ Usage: <code>
 """
 
 module.exports = (bot) ->
-	bot.on-text /^[\/!]lang(uage)?s(@rextester_bot)?$/, (msg) ->
+	bot.on-text /^[\/!]lang(uage)?s(@rextester_bot)?\s*$/, (msg) ->
 		lodash langs
 		.keys!
 		.sortBy!
@@ -29,6 +29,6 @@ module.exports = (bot) ->
 			parse_mode: 'Markdown'
 
 
-	bot.on-text /^[\/!]help(@rextester_bot)?$/, (msg) ->
+	bot.on-text /^[\/!]help(@rextester_bot)?\s*$/, (msg) ->
 		bot.send-message msg.chat.id, help-text,
 			parse_mode: 'HTML'
