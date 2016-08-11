@@ -5,15 +5,15 @@ require!  {
 
 help-text = """Execute code.
 
-Usage: <code>
-/&lt;language&gt; ```
-    code
+Usage: ```
+/<language>
+    <code>
+
+/stdin
+    <stdin>
+
 ```
-/stdin ```
-    stdin
-```
-</code>
-<code>/stdin</code> is optional.
+`/stdin <stdin>` is optional.
 /languages (or /langs) for list of languages
 
 """
@@ -31,4 +31,4 @@ module.exports = (bot) ->
 
 	bot.on-text /^[\/!]help(@rextester_bot)?\s*$/, (msg) ->
 		bot.send-message msg.chat.id, help-text,
-			parse_mode: 'HTML'
+			parse_mode: 'Markdown'
