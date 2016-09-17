@@ -49,6 +49,8 @@ bot.onText //
 					parse_mode: 'Markdown'
 			return
 
+		bot.send-chat-action msg.chat.id, 'typing'
+
 		request-promise do
 			method: 'POST'
 			url: 'http://rextester.com/rundotnet/api'
