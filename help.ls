@@ -11,11 +11,9 @@ Usage: ```
 
 /stdin
     <stdin>
-
 ```
 `/stdin <stdin>` is optional.
 /languages (or /langs) for list of languages
-
 """
 
 module.exports = (bot) ->
