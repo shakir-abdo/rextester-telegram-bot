@@ -20,63 +20,64 @@ bot = new Bot token,
 
 help bot
 
-bot.onText //
-		^
-		[/!#]
-		([a-zA-Z1-9.#\_+-]+) # language
-		(?:@(rextester_bot))? # bot's name, hardcoded for simplicity
+function format
+	lodash it
+	.pickBy! # ignore empty values
+	.map (val, key) ->
+		"""
+		*#key*: ```
+		#{val.trim!}
+		```
+		"""
+	.join '\n'
+
+regex = //^/
+	([a-zA-Z1-9.#\_+-]+) # language
+	(?:@(rextester_bot))? # bot's name, hardcoded for simplicity
+	\s+
+	([\s\S]+?) # code
+	(?:
 		\s+
-		# ```
-			([\s\S]+?) # code
-		# ```
-		(?:
-			\s+
-			[/!]stdin
-			\s+
-			# ```
-				([\s\S]+) # stdin
-			# ```
-		)?
-		$
-	//, (msg, [, lang, name, code, stdin]) ->
-		if verbose
-			console.log msg
-		lang-id = langs[lang.toLowerCase!]
-		if lang-id == void
-			if name or msg.chat.type == 'private'
-				bot.send-message msg.chat.id, "Unknown language: `#lang`.",
-					reply_to_message_id: msg.message_id
-					parse_mode: 'Markdown'
-			return
+		/stdin
+		\s+
+		([\s\S]+) # stdin
+	)?
+$//
 
-		bot.send-chat-action msg.chat.id, 'typing'
+reply = (msg, match_) ->
+	if verbose
+		console.log msg
+	bot.send-chat-action msg.chat.id, 'typing'
+	execute match_
+	.then format
+	.then (result) ->
+		bot.send-message do
+			msg.chat.id
+			result
+			reply_to_message_id: msg.message_id
+			parse_mode: 'Markdown'
+	.catch (e) ->
+		bot.send-message do
+			msg.chat.id
+			e.to-string!
+			reply_to_message_id: msg.message_id
 
-		request-promise do
-			method: 'POST'
-			url: 'http://rextester.com/rundotnet/api'
-			form:
-				LanguageChoice: lang-id
-				Program: code
-				Input: stdin
-				CompilerArgs: compiler-args[lang-id] || ''
+bot.on-text regex, reply
 
-		.then JSON.parse
-		.then ->
-			lodash it
-			.pickBy! # ignore empty values
-			.map (val, key) ->
-				"""
-				*#key*: ```
-				#{val.trim!}
-				```
-				"""
-			.join '\n'
-			|> bot.send-message msg.chat.id, _,
-				reply_to_message_id: msg.message_id
-				parse_mode: 'Markdown'
-		.catch (e) ->
-			bot.send-message msg.chat.id, e.to-string!,
-				reply_to_message_id: msg.message_id
+function execute [, lang, name, code, stdin]
+	lang-id = langs[lang.to-lower-case!]
+	if lang-id == void
+		return Promise.reject new Error "Unknown language: #lang."
 
-if verbose
-	console.log 'Bot started.'
+	request-promise do
+		method: 'POST'
+		url: 'http://rextester.com/rundotnet/api'
+		form:
+			LanguageChoice: lang-id
+			Program: code
+			Input: stdin
+			CompilerArgs: compiler-args[lang-id] || ''
+		json: true
+
+
+console.info 'Bot started.'
