@@ -7,6 +7,7 @@ require! {
 	'./langs.json'
 	'./compiler-args.json'
 	'./help'
+	'./tips'
 }
 
 token = process.env.TELEGRAM_BOT_TOKEN || require './token.json'
@@ -49,6 +50,8 @@ reply = (msg, match_) ->
 		console.log msg
 	bot.send-chat-action msg.chat.id, 'typing'
 	execute match_
+	.tap ->
+		it.Tip = tips.process-output it or tips.process-input msg
 	.then format
 	.then (result) ->
 		bot.send-message do
@@ -78,6 +81,8 @@ function execute [, lang, name, code, stdin]
 			Input: stdin
 			CompilerArgs: compiler-args[lang-id] || ''
 		json: true
+
+	.promise!
 
 
 console.info 'Bot started.'
