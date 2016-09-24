@@ -27,6 +27,9 @@ module.exports = (bot) ->
 			parse_mode: 'Markdown'
 
 
-	bot.on-text /^[\/!]help(@rextester_bot)?\s*$/, (msg) ->
-		bot.send-message msg.chat.id, help-text,
-			parse_mode: 'Markdown'
+	bot.on-text //^/(\S+)(@rextester_bot)?\s*$//, (msg, [, command]) ->
+		if command == 'help' or langs[command]?
+			bot.send-message do
+				msg.chat.id
+				help-text
+				parse_mode: 'Markdown'
