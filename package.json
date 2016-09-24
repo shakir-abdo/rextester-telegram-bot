@@ -4,6 +4,7 @@
   "description": "Telegram bot (@rextester_bot) for executing snippets of code",
   "main": "main.ls",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "livescript": "^1.5.0",
     "lodash": "^4.14.1",
     "node-telegram-bot-api": "https://github.com/chris54721/node-telegram-bot-api/tarball/b308c956ae1490981ab279ee341f941d6a777fb4",

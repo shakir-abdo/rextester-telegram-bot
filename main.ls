@@ -4,6 +4,7 @@ require! {
 	'node-telegram-bot-api': 'Bot'
 	'request-promise'
 	'lodash'
+	'bluebird': 'Promise'
 	'./langs.json'
 	'./compiler-args.json'
 	'./help'
