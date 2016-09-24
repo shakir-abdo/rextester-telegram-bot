@@ -17,8 +17,16 @@ verbose = lodash process.argv
 	.slice 2
 	.some -> it == '-v' or it == '--verbose'
 
+url = process.env.NOW_URL
+
+
 bot = new Bot token,
-	polling: true
+	if url?
+		web-hook:
+			host: '0.0.0.0'
+			port: process.env.PORT || 8000
+	else
+		polling : true
 
 help bot
 
@@ -85,5 +93,8 @@ function execute [, lang, name, code, stdin]
 
 	.promise!
 
+
+if url?
+	bot.set-web-hook "#url/#token"
 
 console.info 'Bot started.'
