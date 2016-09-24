@@ -5,15 +5,9 @@ require!  {
 
 help-text = """Execute code.
 
-Usage: ```
-/<language>
-    <code>
+Usage: `/<language> <code> [/stdin <stdin>]`
 
-/stdin
-    <stdin>
-```
-`/stdin <stdin>` is optional.
-/languages (or /langs) for list of languages
+/languages (or /langs) for list of languages.
 """
 
 module.exports = (bot) ->
