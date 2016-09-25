@@ -14,7 +14,7 @@
   "devDependencies": {},
   "scripts": {
     "install": "sh -e on-install.sh",
-    "start": "./node_modules/.bin/lsc main.ls",
+    "start": "lsc main.ls",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
