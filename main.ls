@@ -57,8 +57,9 @@ $//
 reply = (msg, match_) ->
 	if verbose
 		console.log msg
-	bot.send-chat-action msg.chat.id, 'typing'
-	execute match_
+	execution = execute match_
+	bot.send-chat-action msg.chat.id, 'typing' unless execution.is-rejected!
+	execution
 	.tap ->
 		it.Tip = tips.process-output it or tips.process-input msg
 	.then format
@@ -68,6 +69,7 @@ reply = (msg, match_) ->
 			result
 			reply_to_message_id: msg.message_id
 			parse_mode: 'Markdown'
+	.catch quiet: true, -> throw it if msg.chat.type == 'private'
 	.catch (e) ->
 		bot.send-message do
 			msg.chat.id
@@ -79,7 +81,9 @@ bot.on-text regex, reply
 function execute [, lang, name, code, stdin]
 	lang-id = langs[lang.to-lower-case!]
 	if typeof lang-id != 'number'
-		return Promise.reject new Error "Unknown language: #lang."
+		error = new Error "Unknown language: #lang."
+		error.quiet = not name
+		return Promise.reject error
 
 	request-promise do
 		method: 'POST'
