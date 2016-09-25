@@ -22,7 +22,7 @@ module.exports = (bot) ->
 
 
 	bot.on-text //^/(\S+)(@rextester_bot)?\s*$//, (msg, [, command]) ->
-		if command == 'help' or langs[command]?
+		if command == 'help' or langs.has-own-property command.to-lower-case!
 			bot.send-message do
 				msg.chat.id
 				help-text

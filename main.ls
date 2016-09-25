@@ -78,7 +78,7 @@ bot.on-text regex, reply
 
 function execute [, lang, name, code, stdin]
 	lang-id = langs[lang.to-lower-case!]
-	if lang-id == void
+	if typeof lang-id != 'number'
 		return Promise.reject new Error "Unknown language: #lang."
 
 	request-promise do
