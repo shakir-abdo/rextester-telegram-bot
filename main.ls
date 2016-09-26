@@ -9,7 +9,11 @@ require! {
 	'./compiler-args.json'
 	'./help'
 	'./tips'
+	'./emoji.json'
 }
+
+Promise.config do
+	cancellation: true
 
 token = process.env.TELEGRAM_BOT_TOKEN || require './token.json'
 
@@ -18,6 +22,8 @@ verbose = lodash process.argv
 	.some -> it == '-v' or it == '--verbose'
 
 url = process.env.NOW_URL
+
+msgs = {}
 
 
 bot = new Bot token,
@@ -59,7 +65,7 @@ reply = (msg, match_) ->
 		console.log msg
 	execution = execute match_
 	bot.send-chat-action msg.chat.id, 'typing' unless execution.is-rejected!
-	execution
+	reply = execution
 	.tap ->
 		it.Tip = tips.process-output it or tips.process-input msg
 	.then format
@@ -75,8 +81,61 @@ reply = (msg, match_) ->
 			msg.chat.id
 			e.to-string!
 			reply_to_message_id: msg.message_id
+	msgs[[msg.chat.id, msg.message_id]] = {reply} unless execution.is-rejected!
 
 bot.on-text regex, reply
+
+bot.on 'edited_message_text', (msg) ->
+	match_ = regex.exec msg.text
+	if not match_
+		return
+
+	context = msgs[[msg.chat.id, msg.message_id]]
+	if not context or context.reply.is-rejected!
+		return reply msg, match_
+
+	context.edit?.cancel!
+
+
+	execution = execute match_
+		.tap ->
+			it.Tip = tips.process-output it or tips.process-input msg
+		.then format
+
+	processing = context.reply.then (old-msg) ->
+		bot.edit-message-text do
+			"#{emoji.hourglass}Processing your edit..."
+			chat_id: old-msg.chat.id
+			message_id: old-msg.message_id
+		.catch -> old-msg
+
+	context.edit = Promise.join processing, execution
+		.spread (old-msg, result) ->
+			bot.edit-message-text do
+				result
+				chat_id: old-msg.chat.id
+				message_id: old-msg.message_id
+				parse_mode: 'Markdown'
+			.catch ->
+				msgs[[msg.chat.id, msg.message_id]] =
+					reply: bot.send-message do
+						msg.chat.id
+						result
+						reply_to_message_id: msg.message_id
+						parse_mode: 'Markdown'
+		.catch (e) ->
+			processing.then (old-msg) ->
+				bot.edit-message-text do
+					e.to-string!
+					chat_id: old-msg.chat.id
+					message_id: old-msg.message_id
+			.catch ->
+				msgs[[msg.chat.id, msg.message_id]] =
+					reply: bot.send-message do
+						msg.chat.id
+						e.to-string!
+						reply_to_message_id: msg.message_id
+
 
 function execute [, lang, name, code, stdin]
 	lang-id = langs[lang.to-lower-case!]
