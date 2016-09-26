@@ -1,5 +1,6 @@
 require!  {
 	'./langs.json'
+	'./emoji.json'
 	'lodash'
 }
 
@@ -9,6 +10,8 @@ Usage: `/<language> <code> [/stdin <stdin>]`
 
 /languages (or /langs) for list of languages.
 """
+
+tab = "\n\n#{emoji.bulb}Hit Tab instead of Enter to autocomplete command without sending it right away."
 
 module.exports = (bot) ->
 	bot.on-text /^[\/!]lang(uage)?s(@rextester_bot)?\s*$/, (msg) ->
@@ -25,5 +28,6 @@ module.exports = (bot) ->
 		if command == 'help' or langs.has-own-property command.to-lower-case!
 			bot.send-message do
 				msg.chat.id
-				help-text
+				# string.repeat bool <=> if bool then string else ""
+				help-text + tab.repeat command != 'help'
 				parse_mode: 'Markdown'
