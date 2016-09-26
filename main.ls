@@ -62,7 +62,7 @@ regex = //^/
 		\s+
 		([\s\S]+) # stdin
 	)?
-$//
+$//i
 
 reply = (msg, match_) ->
 	if verbose
