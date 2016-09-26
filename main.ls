@@ -34,7 +34,11 @@ bot = new Bot token,
 	else
 		polling : true
 
-help bot
+(me) <- bot.get-me!.then
+
+botname = me.username
+
+help bot, botname
 
 function format
 	lodash it
@@ -49,7 +53,7 @@ function format
 
 regex = //^/
 	([a-zA-Z1-9.#\_+-]+) # language
-	(?:@(rextester_bot))? # bot's name, hardcoded for simplicity
+	(?:@(#botname))?
 	\s+
 	([\s\S]+?) # code
 	(?:
