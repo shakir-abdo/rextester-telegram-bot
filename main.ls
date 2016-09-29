@@ -52,7 +52,7 @@ function format
 	.join '\n'
 
 regex = //^/
-	([a-zA-Z1-9.#\_+-]+) # language
+	([\w.#+]+) # language
 	(?:@(#botname))?
 	\s+
 	([\s\S]+?) # code

@@ -24,7 +24,7 @@ module.exports = (bot, botname) ->
 			parse_mode: 'Markdown'
 
 
-	bot.on-text //^/(\S+)(@#botname)?\s*$//i, (msg, [, command]) ->
+	bot.on-text //^/([\w.#+]+)(@#botname)?\s*$//i, (msg, [, command]) ->
 		if command == 'help' or langs.has-own-property command.to-lower-case!
 			bot.send-message do
 				msg.chat.id
