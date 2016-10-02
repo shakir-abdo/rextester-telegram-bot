@@ -1,30 +1,26 @@
 {
 	"c#": 1,
-	"c-sharp": 1,
 	"csharp": 1,
-	"c_sharp": 1,
 
 	"vb.net": 2,
 	"vb": 2,
-	"visual-basic":2,
-	"visual-basic.net": 2,
+	"visual_basic_dotnet": 2,
 
 	"java": 4,
 
 	"python2": 5,
 	"py2": 5,
 
-	"c-gcc": 6,
 	"c_gcc": 6,
 	"gcc": 6,
 	"c": 6,
 
-	"c++-gcc": 7,
 	"cplusplus_gcc": 7,
 	"cplusplus": 7,
-	"c++-g++": 7,
 	"g++": 7,
 	"c++": 7,
+	"cpp_gcc": 7,
+	"cpp": 7,
 
 	"php": 8,
 
@@ -32,31 +28,27 @@
 	"pas": 9,
 	"fpc": 9,
 
-	"objective-c": 10,
 	"objective_c": 10,
-	"objectivec": 10,
+	"objc": 10,
 
 	"haskell": 11,
 
 	"ruby": 12,
-	"rb": 12,
 
-	"perl5": 13,
 	"perl": 13,
 
 	"lua": 14,
 
 	"nasm": 15,
 	"asm": 15,
-	"assembly": 15,
 
-	"sql-server": 16,
+	"sql_server": 16,
 
 	"v8": 17,
 
-	"common-lisp": 18,
+	"common_lisp": 18,
+	"clisp": 18,
 	"lisp": 18,
-	"cl": 18,
 
 	"prolog": 19,
 
@@ -67,7 +59,6 @@
 
 	"scheme": 22,
 
-	"node.js": 23,
 	"node": 23,
 	"javascript": 23,
 	"js": 23,
@@ -76,24 +67,20 @@
 	"py3": 24,
 	"python": 24,
 
-	"c-clang": 26,
 	"c_clang": 26,
 	"clang": 26,
 
-	"c++-clang": 27,
 	"cplusplus_clang": 27,
+	"cpp_clang": 27,
 	"clangplusplus": 27,
 	"clang++": 27,
 
-	"visual-c++": 28,
 	"visual_cplusplus": 28,
+	"visual_cpp": 28,
 	"vc++": 28,
 	"msvc": 28,
 
-	"visual-c": 29,
 	"visual_c": 29,
-	"visualc": 29,
-	"vc": 29,
 
 	"d": 30,
 
