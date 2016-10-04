@@ -107,13 +107,13 @@ bot.on 'edited_message_text', (msg) ->
 		.then format
 
 	processing = context.reply.then (old-msg) ->
-		bot.edit-message-text do
-			"#{emoji.hourglass}Processing your edit..."
-			chat_id: old-msg.chat.id
-			message_id: old-msg.message_id
-		.catch -> old-msg
+		if execution.is-pending!
+			bot.edit-message-text do
+				"#{emoji.hourglass}Processing your edit..."
+				chat_id: old-msg.chat.id
+				message_id: old-msg.message_id
 
-	context.edit = Promise.join processing, execution
+	context.edit = Promise.join context.reply, execution, processing.catch-return!
 		.spread (old-msg, result) ->
 			bot.edit-message-text do
 				result
