@@ -10,6 +10,7 @@ require! {
 	'./help'
 	'./tips'
 	'./emoji.json'
+	'./responder': 'Responder'
 }
 
 Promise.config do
@@ -23,8 +24,6 @@ verbose = lodash process.argv
 
 url = process.env.NOW_URL
 
-msgs = {}
-
 
 bot = new Bot token,
 	if url?
@@ -33,6 +32,8 @@ bot = new Bot token,
 			port: process.env.PORT || 8000
 	else
 		polling : true
+
+responder = new Responder bot
 
 (me) <- bot.get-me!.then
 
@@ -64,81 +65,26 @@ regex = //^/
 	)?
 $//i
 
-reply = (msg, match_) ->
-	if verbose
-		console.log msg
-	execution = execute match_
-	bot.send-chat-action msg.chat.id, 'typing' unless execution.is-rejected!
-	reply = execution
-	.tap ->
-		it.Tip = tips.process-output it or tips.process-input msg
-	.then format
-	.then (result) ->
-		bot.send-message do
-			msg.chat.id
-			result
-			reply_to_message_id: msg.message_id
-			parse_mode: 'Markdown'
-	.catch quiet: true, -> throw it if msg.chat.type == 'private'
-	.catch (e) ->
-		bot.send-message do
-			msg.chat.id
-			e.to-string!
-			reply_to_message_id: msg.message_id
-	msgs[[msg.chat.id, msg.message_id]] = {reply} unless execution.is-rejected!
+bot.on 'text', handle
+bot.on 'edited_message_text', handle
 
-bot.on-text regex, reply
+function handle (msg)
+	console.log msg if verbose
 
-bot.on 'edited_message_text', (msg) ->
 	match_ = regex.exec msg.text
 	if not match_
 		return
 
-	context = msgs[[msg.chat.id, msg.message_id]]
-	if not context or context.reply.is-rejected!
-		return reply msg, match_
-
-	context.edit?.cancel!
-
-
-	execution = execute match_
+	execute match_
 		.tap ->
 			it.Tip = tips.process-output it or tips.process-input msg
 		.then format
 
-	processing = context.reply.then (old-msg) ->
-		if execution.is-pending!
-			bot.edit-message-text do
-				"#{emoji.hourglass}Processing your edit..."
-				chat_id: old-msg.chat.id
-				message_id: old-msg.message_id
+	|> responder.respond-when-ready do
+		msg
+		_
+		parse_mode: 'Markdown'
 
-	context.edit = Promise.join context.reply, execution, processing.catch-return!
-		.spread (old-msg, result) ->
-			bot.edit-message-text do
-				result
-				chat_id: old-msg.chat.id
-				message_id: old-msg.message_id
-				parse_mode: 'Markdown'
-			.catch ->
-				msgs[[msg.chat.id, msg.message_id]] =
-					reply: bot.send-message do
-						msg.chat.id
-						result
-						reply_to_message_id: msg.message_id
-						parse_mode: 'Markdown'
-		.catch (e) ->
-			processing.then (old-msg) ->
-				bot.edit-message-text do
-					e.to-string!
-					chat_id: old-msg.chat.id
-					message_id: old-msg.message_id
-			.catch ->
-				msgs[[msg.chat.id, msg.message_id]] =
-					reply: bot.send-message do
-						msg.chat.id
-						e.to-string!
-						reply_to_message_id: msg.message_id
 
 
 function execute [, lang, name, code, stdin]
