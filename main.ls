@@ -64,6 +64,52 @@ regex = //^/
 	)?
 $//i
 
+bot.on 'inline_query', (query) ->
+	console.log query if verbose
+	match_ = regex.exec '/' + query.query
+
+	console.log match_ if verbose and match_
+
+	execution =
+		if match_
+			execute match_
+		else
+			Promise.reject "Invalid syntax. It's <language> <code> [/stdin <stdin>]"
+
+	execution
+	.then (raw) ->
+		result = lodash.defaults do
+			Language: match_[1]
+			Source: match_[3]
+			Stdin: match_[4]
+			raw
+		|> format
+
+		bot.answer-inline-query do
+			query.id
+			[{
+				id: 'test'
+				type: 'article'
+				title: raw.Errors || raw.Result  || "Did you forget to output something?"
+				input_message_content:
+					message_text: result
+					parse_mode: 'Markdown'
+
+			}]
+			inline_query_id: query.id
+	.catch (e) ->
+		s = e.to-string!
+		bot.answer-inline-query do
+			query.id
+			[{
+				id: 'test'
+				type: 'article'
+				title: s
+				input_message_content:
+					message_text: s
+			}]
+			inline_query_id: query.id
+
 reply = (msg, match_) ->
 	if verbose
 		console.log msg
