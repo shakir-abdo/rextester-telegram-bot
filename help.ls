@@ -4,16 +4,22 @@ require!  {
 	'lodash'
 }
 
-help-text = """Execute code.
-
-Usage: `/<language> <code> [/stdin <stdin>]`
-
-/languages (or /langs) for list of languages.
-"""
 
 tab = "\n\n#{emoji.bulb}Hit Tab instead of Enter to autocomplete command without sending it right away."
 
 module.exports = (bot, botname) ->
+	help-text = """Execute code.
+
+	Usage: `/<language> <code> [/stdin <stdin>]`
+
+	Inline mode:
+	`@#botname <language> <code> [/stdin <stdin>]`
+
+	Line breaks and indentation are supported.
+
+	See list of supported programming /languages.
+	"""
+
 	bot.on-text //^[\/!]lang(uage)?s(@#botname)?\s*$//i, (msg) ->
 		lodash langs
 		.keys!
