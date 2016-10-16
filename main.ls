@@ -66,6 +66,13 @@ $//i
 
 bot.on 'inline_query', (query) ->
 	console.log query if verbose
+
+	if not query.query
+		return bot.answer-inline-query do
+			query.id
+			[]
+			inline_query_id: query.id
+
 	match_ = regex.exec '/' + query.query
 
 	console.log match_ if verbose and match_
