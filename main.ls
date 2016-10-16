@@ -81,7 +81,9 @@ bot.on 'inline_query', (query) ->
 		if match_
 			execute match_
 		else
-			Promise.reject "Invalid syntax. It's <language> <code> [/stdin <stdin>]"
+			error = new Error "Invalid query syntax."
+			error.description = "It's <language> <code> [/stdin <stdin>]"
+			Promise.reject error
 
 	execution
 	.then (raw) ->
@@ -112,6 +114,7 @@ bot.on 'inline_query', (query) ->
 				id: 'test'
 				type: 'article'
 				title: s
+				description: e.description
 				input_message_content:
 					message_text: s
 			}]
