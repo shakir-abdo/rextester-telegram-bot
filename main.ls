@@ -105,6 +105,7 @@ bot.on 'inline_query', (query) ->
 					parse_mode: 'Markdown'
 
 			}]
+			cache_time: 0
 			inline_query_id: query.id
 	.catch (e) ->
 		s = e.to-string!
