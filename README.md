@@ -1,6 +1,4 @@
-Telegram bot for executing snippets of code.
-
-"Official" deploy: [@rextester_bot][1]
+A Telegram bot to execute snippets of code.
 
 ## Setup ##
 
@@ -16,5 +14,3 @@ Telegram bot for executing snippets of code.
     export PORT=<port to listen to updates on>
 
     npm start
-
-[1]: https://telegram.me/rextester_bot
