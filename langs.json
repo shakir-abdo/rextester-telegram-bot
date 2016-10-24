@@ -8,6 +8,7 @@
 
 	"java": 4,
 
+	"python": 5,
 	"python2": 5,
 	"py2": 5,
 
@@ -65,7 +66,6 @@
 
 	"python3": 24,
 	"py3": 24,
-	"python": 24,
 
 	"c_clang": 26,
 	"clang": 26,
