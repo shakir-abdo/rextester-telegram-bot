@@ -1,25 +1,25 @@
 {
-  "name": "rextester-bot",
-  "version": "2.1.0",
-  "description": "Telegram bot (@rextester_bot) for executing snippets of code",
-  "main": "main.ls",
-  "dependencies": {
-    "bluebird": "^3.4.6",
-    "livescript": "^1.5.0",
-    "lodash": "^4.14.1",
-    "node-telegram-bot-api": "./node-telegram-bot-api-0.23.3.tgz",
-    "request": "^2.74.0",
-    "request-promise": "^4.1.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "start": "lsc main.ls",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/GingerPlusPlus/rextester-bot.git"
-  },
-  "author": "GingerPlusPlus <woj.pawlik@gmail.com>",
-  "license": "ISC"
+	"name": "rextester-telegram-bot",
+	"version": "2.1.0",
+	"description": "A Telegram bot to execute snippets of code.",
+	"main": "main.ls",
+	"dependencies": {
+		"bluebird": "^3.4.6",
+		"livescript": "^1.5.0",
+		"lodash": "^4.14.1",
+		"node-telegram-bot-api": "./node-telegram-bot-api-0.23.3.tgz",
+		"request": "^2.74.0",
+		"request-promise": "^4.1.0"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"start": "lsc main.ls",
+		"test": "echo \"Error: no test specified.\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://bitbucket.org/matthewhesketh/rextester-telegram-bot.git"
+	},
+	"author": "Wojtek Pawlik <woj.pawlik@gmail.com>",
+	"license": "ISC"
 }
